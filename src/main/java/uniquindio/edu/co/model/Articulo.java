@@ -1,9 +1,10 @@
 package uniquindio.edu.co.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Getter
@@ -18,13 +19,10 @@ public class Articulo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
-    @OneToMany(mappedBy = "idAutor")
-    private List<AutorArticulo> autores;
-
+    //Atributos
     String titulo, autor, anio, publicacion, paginas, serie, url, topico;
 
-
+    //Constructor Para Parsear la entrada en App
     public Articulo(String titulo, String autor, String anio, String publicacion, String paginas,
                     String serie, String url, String topico) {
         this.titulo = titulo;
@@ -37,10 +35,12 @@ public class Articulo {
         this.topico = topico;
     }
 
+    // Clave para facilitar la lectura de la clase
     public String generarClave() {
         return (titulo + autor + anio).toLowerCase().replaceAll("\\s+", "");
     }
 
+    // Formato Bibtex
     public String aBibtex(int index, boolean duplicado) {
         return String.format("@article{ref%s,\n" +
                         "  title={%s},\n" +
@@ -56,6 +56,7 @@ public class Articulo {
                 safe(paginas), safe(serie), safe(url), safe(topico));
     }
 
+    // Validacion no null para los valores de la clase
     private String safe(String val) {
         return val == null ? "" : val;
     }

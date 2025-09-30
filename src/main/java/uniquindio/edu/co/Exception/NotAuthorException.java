@@ -1,4 +1,6 @@
-package uniquindio.edu.co.implement;
+package uniquindio.edu.co.Exception;
 
-public class NotAuthorException {
+public class NotAuthorException extends Throwable {
+    public NotAuthorException(String msg) {
+    }
 }
