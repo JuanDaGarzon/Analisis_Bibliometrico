@@ -1,7 +1,29 @@
 package uniquindio.edu.co.model;
 
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+@ToString(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Articulo {
+
+    @Id
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+
+    @OneToMany(mappedBy = "idAutor")
+    private List<AutorArticulo> autores;
+
     String titulo, autor, anio, publicacion, paginas, serie, url, topico;
+
 
     public Articulo(String titulo, String autor, String anio, String publicacion, String paginas,
                     String serie, String url, String topico) {
@@ -37,4 +59,5 @@ public class Articulo {
     private String safe(String val) {
         return val == null ? "" : val;
     }
+
 }
